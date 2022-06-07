@@ -1,24 +1,23 @@
 #include <iostream>
 #include <memory>
 
-#include "include/rtweekend.h"
 #include "include/color.h"
 #include "include/hittable_list.h"
+#include "include/rtweekend.h"
 #include "include/sphere.h"
 
-
-color ray_color(const ray &r, const hittable& scene){
+color ray_color(const ray &r, const hittable &scene)
+{
   hit_record rec;
-  if(scene.hit(r, 0, infinity, rec)){
+  if (scene.hit(r, 0, infinity, rec)) {
     // convert normal vector direction to RGB
     return 0.5 * (rec.normal + color(1, 1, 1));
   }
 
   // no hit, show sky
   vec3 unit_direction = unit_vector(r.direction());
-  auto t = 0.5*(unit_direction.y() + 1.0);
-  return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
-
+  auto t = 0.5 * (unit_direction.y() + 1.0);
+  return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
 }
 
 int main()
@@ -27,7 +26,7 @@ int main()
   const auto aspect_ratio = 16.0 / 9.0;
   const auto image_width = 400;
   const auto image_height = static_cast<int>(image_width / aspect_ratio);
-  
+
   // scene
   hittable_list scene;
   scene.add(make_shared<sphere>(point3(0, 0, -1), 0.5));
