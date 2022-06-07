@@ -18,9 +18,11 @@ INCLUDES := $(wildcard $(SRCDIR)/*.h)
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.cc=$(OBJDIR)/%.o)
 rm       = rm -f
 
- .PHONY: run
+ .PHONY: run all
  run: $(BINDIR)/$(TARGET)
 		./$(BINDIR)/$(TARGET) > images/image.ppm
+
+all: $(BINDIR)/$(TARGET)
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
 		@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
